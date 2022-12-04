@@ -22,7 +22,7 @@ const LogIn = () => {
         <img className="w-[612]px h-[437px]" src={Img} alt="" />
       </div>
       <div className="w-[516px] h-[630px] bg-white shadow-2xl p-16">
-        <h2 className="text-2xl font-semibold text-center ">SignUp Form</h2>
+        <h2 className="text-2xl font-semibold text-center ">LogIn Form</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className=" mt-28">
             <input
@@ -43,18 +43,20 @@ const LogIn = () => {
               className="font-normal pl-4 text-md leading-5 text-gray-400  w-full focus:outline-none border-b border-gray-300"
             />
           </div>
+          <small className="text-gray-400 pl-4">
+            Your password must be 8 character
+          </small>
           {errors.exampleRequired && <span>This field is required</span>}
           <div className="flex justify-center items-center mt-20">
-            <button className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-36 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center">
-              Next Step
-              <FaArrowRight></FaArrowRight>
+            <button className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-28 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center">
+              Log In
             </button>
           </div>
-          <div className=" flex gap-2 mt-28 justify-end items-center ">
-            <h1>Already have an account? </h1>
-            <Link>
+          <div className=" flex gap-2 mt-24 justify-end items-center ">
+            <h1>Don't have an account? </h1>
+            <Link to="/signup">
               <span className="uppercase underline font-semibold leading-4 text-blue-500">
-                login here!
+                signup here!
               </span>
             </Link>
           </div>

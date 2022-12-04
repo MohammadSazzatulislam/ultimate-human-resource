@@ -6,7 +6,7 @@ import logo from "../../images/logo.jpg";
 import { FaArrowRight } from "react-icons/fa";
 
 const SignUp = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const {
     register,
     handleSubmit,
@@ -16,6 +16,79 @@ const SignUp = () => {
   const onSubmit = (data) => console.log(data);
 
   console.log(watch("example")); 
+
+
+  const completeStep = () => {
+    setStep(curr=> curr + 1)
+  }
+
+  
+  const completeStepBack = () => {
+    setStep((curr) => curr - 1);
+  };
+
+
+
+
+
+  const renderButton = () => {
+    if (step > 2) {
+      return undefined;
+    }
+    else if (step === 1) {
+      return (
+        <div className="flex gap-24 items-center mt-20">
+          <Link>
+            <span
+              onClick={completeStepBack}
+              className="font-bold text-gray-500 "
+            >
+              Back
+            </span>
+          </Link>
+          <div className="flex justify-center items-center">
+            <button
+              onClick={completeStep}
+              className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-36 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center"
+            >
+              Next Step
+              <FaArrowRight></FaArrowRight>
+            </button>
+          </div>
+        </div>
+      );
+    } else if (step === 2) {
+      return (
+        <div className="flex gap-24 items-center mt-20">
+          <Link>
+            <span
+              onClick={completeStepBack}
+              className="font-bold text-gray-500 "
+            >
+              Back
+            </span>
+          </Link>
+          <button className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-28 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center">
+            Sign Up
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex justify-center items-center mt-20">
+          <button
+            onClick={completeStep}
+            className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-36 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center"
+          >
+            Next Step
+            <FaArrowRight></FaArrowRight>
+          </button>
+        </div>
+      );
+    }
+  }
+
+
   return (
     <div className="flex items-center gap-36 mx-auto justify-center">
       <div>
@@ -47,15 +120,10 @@ const SignUp = () => {
                 />
               </div>
               {errors.exampleRequired && <span>This field is required</span>}
-              <div className="flex justify-center items-center mt-20">
-                <button className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-36 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center">
-                  Next Step
-                  <FaArrowRight></FaArrowRight>
-                </button>
-              </div>
+              {renderButton()}
               <div className=" flex gap-2 mt-28 justify-end items-center ">
                 <h1>Already have an account? </h1>
-                <Link>
+                <Link to="/login">
                   <span className="uppercase underline font-semibold leading-4 text-blue-500">
                     login here!
                   </span>
@@ -93,15 +161,7 @@ const SignUp = () => {
                 />
               </div>
               {errors.exampleRequired && <span>This field is required</span>}
-              <div className="flex gap-24 items-center mt-20">
-                <Link>
-                  <span className="font-bold text-gray-500 ">Back</span>
-                </Link>
-                <button className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-36 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center">
-                  Next Step
-                  <FaArrowRight></FaArrowRight>
-                </button>
-              </div>
+              {renderButton()}
             </>
           )}
           {step === 2 && (
@@ -115,16 +175,11 @@ const SignUp = () => {
                   className="font-normal pl-4 text-md leading-5 text-gray-400  w-full focus:outline-none border-b border-gray-300"
                 />
               </div>
-              <small className="text-gray-400 pl-4">Your password must be 8 character</small>
+              <small className="text-gray-400 pl-4">
+                Your password must be 8 character
+              </small>
               {errors.exampleRequired && <span>This field is required</span>}
-              <div className="flex gap-24 items-center mt-20">
-                <Link>
-                  <span className="font-bold text-gray-500 ">Back</span>
-                </Link>
-                <button className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-28 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center">
-                  Sign Up
-                </button>
-              </div>
+              {renderButton()}
             </>
           )}
         </form>
