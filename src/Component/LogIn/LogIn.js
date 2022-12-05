@@ -1,20 +1,46 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Img from "../../images/FormImage.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.jpg";
 import { FaArrowRight } from "react-icons/fa";
+import { UserInfoContext } from "../../Context/UserContext/UserContext";
 
 const LogIn = () => {
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { setUserEmail } = useContext(UserInfoContext);
+    const navigate = useNavigate();
 
-  console.log(watch("example"));
+  const onSubmit = (data) => {
+    const userInfo = {
+      email: data.email,
+      password: data.password,
+    };
+
+    fetch(" https://test.nexisltd.com/login ", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          localStorage.setItem("access_token", data.access_token);
+          navigate("/attendance");
+        }
+      })
+      .catch((err) => console.log(err.message));
+    setUserEmail(data.email);
+  };
+
   return (
     <div className="flex items-center gap-36 mx-auto justify-center">
       <div>
@@ -26,18 +52,20 @@ const LogIn = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className=" mt-28">
             <input
+              {...register("email", { required: true })}
               name="email"
-              required
               placeholder="Write Email Address"
               type="email"
               className="font-normal pl-4 text-md leading-5 text-gray-400  w-full focus:outline-none border-b border-gray-300"
             />
           </div>
-          {errors.exampleRequired && <span>This field is required</span>}
+          {errors.email && (
+            <small className="text-red-500 pl-4">{errors.email.message}</small>
+          )}
           <div className=" mt-16">
             <input
+              {...register("password", { required: true })}
               name="password"
-              required
               placeholder="Write Password"
               type="password"
               className="font-normal pl-4 text-md leading-5 text-gray-400  w-full focus:outline-none border-b border-gray-300"
@@ -46,9 +74,16 @@ const LogIn = () => {
           <small className="text-gray-400 pl-4">
             Your password must be 8 character
           </small>
-          {errors.exampleRequired && <span>This field is required</span>}
+          {errors.password && (
+            <small className="text-red-500 pl-4">
+              {errors.password.message}
+            </small>
+          )}
           <div className="flex justify-center items-center mt-20">
-            <button className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-28 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center">
+            <button
+              type="submit"
+              className=" gap-3 drop-shadow-lg hover:bg-white hover:text-blue-500 hover:bg-gradient-to-r hover:from-white hover:to-white hover:border hover:border-blue-500 flex w-28 justify-center rounded-2xl text-white font-medium text-md bg-gradient-to-r from-blue-500 to-blue-500   h-12 items-center"
+            >
               Log In
             </button>
           </div>
