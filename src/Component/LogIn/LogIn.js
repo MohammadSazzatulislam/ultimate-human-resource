@@ -1,13 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Img from "../../images/FormImage.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.jpg";
-import { FaArrowRight } from "react-icons/fa";
 import { UserInfoContext } from "../../Context/UserContext/UserContext";
 
 const LogIn = () => {
-
   const {
     register,
     handleSubmit,
@@ -15,7 +13,7 @@ const LogIn = () => {
     formState: { errors },
   } = useForm();
   const { setUserEmail } = useContext(UserInfoContext);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     const userInfo = {
@@ -42,12 +40,12 @@ const LogIn = () => {
   };
 
   return (
-    <div className="flex items-center gap-36 mx-auto justify-center">
+    <div className="flex flex-col lg:flex-row items-center gap-36 mx-auto justify-center">
       <div>
         <img src={logo} alt="" />
-        <img className="w-[612]px h-[437px]" src={Img} alt="" />
+        <img className="lg:w-[612]px lg:h-[437px] h-full w-full " src={Img} alt="" />
       </div>
-      <div className="w-[516px] h-[630px] bg-white shadow-2xl p-16">
+      <div className="lg:w-[516px] lg:h-[630px] w-[450px] bg-white shadow-2xl p-16">
         <h2 className="text-2xl font-semibold text-center ">LogIn Form</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className=" mt-28">

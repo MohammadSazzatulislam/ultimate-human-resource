@@ -13,8 +13,8 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm({ mode: "all" });
-  
-   const navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     const userInfo = {
@@ -28,18 +28,15 @@ const SignUp = () => {
     fetch(" https://test.nexisltd.com/signup", {
       method: "POST",
       headers: {
-        "content-type":"application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify(userInfo),
     })
       .then((res) => res.json())
       .then((data) => {
-console.log(data);
-          navigate('/login')
+        navigate("/login");
       })
       .catch((err) => console.log(err.message));
-    
-      console.log(userInfo);
   };
 
   const completeStep = () => {
@@ -67,12 +64,12 @@ console.log(data);
   };
 
   return (
-    <div className="flex items-center gap-36 mx-auto justify-center">
+    <div className="flex  flex-col lg:flex-row items-center gap-36 mx-auto justify-center">
       <div>
         <img src={logo} alt="" />
-        <img className="w-[612]px h-[437px]" src={Img} alt="" />
+        <img className="lg:w-[612]px lg:h-[437px] h-full w-full" src={Img} alt="" />
       </div>
-      <div className="w-[516px] h-[630px] bg-white shadow-2xl p-16">
+      <div className="lg:w-[516px] lg:h-[630px] w-[450px] bg-white shadow-2xl p-16">
         <h2 className="text-2xl font-semibold text-center ">SignUp Form</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           {step === 0 && (
@@ -116,19 +113,11 @@ console.log(data);
             <>
               <div className=" mt-28 flex gap-1 ">
                 <input
-                  name="number"
-                  readOnly
-                  defaultValue={"+880"}
-                  placeholder="+880"
-                  type="number"
-                  className="font-normal pl-4 w-20 text-md leading-5 text-gray-500 focus:outline-none border-b border-gray-300"
-                />
-                <input
                   {...register("number", { required: true })}
                   name="number"
-                  placeholder="1xxxxxxxxx"
+                  placeholder="+880  1xxxxxxxxx"
                   type="number"
-                  className="font-normal  text-md leading-5 text-gray-500  w-full focus:outline-none border-b border-gray-300"
+                  className="font-normal pl-4 text-md leading-5 text-gray-500  w-full focus:outline-none border-b border-gray-300"
                 />
               </div>
 
